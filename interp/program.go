@@ -4,7 +4,7 @@ import (
 	"context"
 	"go/ast"
 	"go/token"
-	"os"
+	"io/fs"
 	"reflect"
 	"runtime"
 	"runtime/debug"
@@ -40,7 +40,7 @@ func (interp *Interpreter) CompilePath(path string) (*Program, error) {
 		return nil, err
 	}
 
-	b, err := os.ReadFile(path)
+	b, err := fs.ReadFile(interp.filesystem, path)
 	if err != nil {
 		return nil, err
 	}
